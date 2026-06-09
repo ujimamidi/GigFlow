@@ -6,6 +6,7 @@ function GigListNavbar() {
                 <div className="flex gap-10 text-[#A0A7B2] font-normal px-4 py-2 bg-[#0D1117] border-[#2D333B] border-2 rounded-xl">
                     <a href="">All</a>
                     <a href="">Upcoming</a>
+                    <a href="">Past</a>
                     <a href="">Paid</a>
                     <a href="">Unpaid</a>
                 </div>

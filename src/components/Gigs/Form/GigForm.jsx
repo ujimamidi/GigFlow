@@ -17,8 +17,17 @@ function GigForm({setGigs}) {
     };
 
     const handleSubmit = () => {
-        setGigs(prev => [...prev, formData]);
+        setGigs(prev => [...prev, formData].sort((a, b) => new Date(a.date) - new Date(b.date)));
         console.log(formData);
+        // clear input
+        setFormData({
+            eventName: "",
+            clientName: "",
+            venue: "",
+            date: "",
+            payment: "",
+            isPaid: false 
+        });
     }
 
     return (
@@ -59,7 +68,7 @@ function GigForm({setGigs}) {
                 title="Mark as Paid?"
                 type="checkbox"
                 value={formData.isPaid}
-                onChange={(e) => handleChange("eventName", e.target.cheked)}
+                onChange={(e) => handleChange("isPaid", e.target.checked)}
             />
             <button
                 onClick={handleSubmit}
