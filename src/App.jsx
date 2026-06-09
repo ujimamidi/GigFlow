@@ -1,11 +1,12 @@
 import './App.css'
+import Landing from './pages/Landing'
 
 function App() {
 
   return (
-    <>
-      <h1 className="">Hello World</h1>
-    </>
+    <div className="bg-[#161B22] min-h-screen">
+      <Landing />
+    </div>
   )
 }
 
