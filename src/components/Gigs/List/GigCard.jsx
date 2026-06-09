@@ -1,4 +1,4 @@
-function GigCard({month, day, gigName, venue, number}) {
+function GigCard({month, day, gigName, venue, payment}) {
     return (
         <div className="flex flex-row bg-[#1F232B] border-[#2D333B] border-2 rounded-lg p-5 items-center gap-5">
             <div className="flex flex-col bg-[#0D1117] text-[#e6e6e6] px-5 py-2 text-center border-[#2D333B] border-2 rounded-xl ">
@@ -10,7 +10,7 @@ function GigCard({month, day, gigName, venue, number}) {
                 <p className="font-medium"><span>📍 </span>{venue}</p>
             </div>
             <h1 className="">Upcoming</h1>
-            <h1>{number}</h1>
+            <h1>{payment}</h1>
         </div>
     )
 }

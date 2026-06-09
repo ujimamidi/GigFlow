@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FormField from "./FormField";
 
-function GigForm() {
+function GigForm({setGigs}) {
 
     const [formData, setFormData] = useState({
         eventName: "",
@@ -17,6 +17,7 @@ function GigForm() {
     };
 
     const handleSubmit = () => {
+        setGigs(prev => [...prev, formData]);
         console.log(formData);
     }
 
