@@ -15,7 +15,7 @@ function Landing() {
                 <GigForm setGigs={setGigs}/>
                 <div className="flex flex-col">
                     <GigStats gigs={gigs}/>
-                    <GigList gigs={gigs}/>
+                    <GigList gigs={gigs} setGigs={setGigs}/>
                 </div>
             </div>
         </div>
