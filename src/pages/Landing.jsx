@@ -5,15 +5,14 @@ import Navbar from "../components/Navbar";
 import { useState } from "react";
 
 function Landing() {
-
     const [gigs, setGigs] = useState([]);
 
     return (
-        <div>
+        <div className="p-4">
             <Navbar />
-            <div className="flex flex-row items-start ml-8 mt-8">
+            <div className="flex flex-col lg:flex-row items-start gap-5 mt-8">
                 <GigForm setGigs={setGigs}/>
-                <div className="flex flex-col">
+                <div className="flex flex-col w-full">
                     <GigStats gigs={gigs}/>
                     <GigList gigs={gigs} setGigs={setGigs}/>
                 </div>

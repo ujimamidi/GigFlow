@@ -68,7 +68,7 @@ function GigForm({setGigs}) {
     }
 
     return (
-        <div className="bg-[#1F232B] p-5 flex w-1/4 flex-col border-[#2D333B] border-2 rounded-xl">
+        <div className="bg-[#1F232B] p-5 flex w-full lg:w-1/4 shrink-0 flex-col border-[#2D333B] border-2 rounded-xl">
             <h1 className="text-[#E6E6E6] text-xl mb-5"><span>📌 </span>Add New Gig</h1>
             <FormField 
                 title="Event Name"
