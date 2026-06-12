@@ -4,12 +4,15 @@ import GigListNavbar from "./GigListNavbar";
 
 function GigList({gigs , setGigs}) {
 
-    const [filter, setFilter] = useState("all");
+    const [filter, setFilter] = useState("upcoming");
+    const [search, setSearch] = useState("");
 
     /*
     * Filters gigs based on the navlinks
     */
     const filteredGigs = gigs.filter((gig) => {
+        const matchesSearch = gig.eventName.toLowerCase().includes(search.toLowerCase()) || gig.venue.toLowerCase().includes(search.toLowerCase());
+        if (!matchesSearch) return false; // searches gig based on event name or venue
         if (filter === "all") return true;
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -19,6 +22,14 @@ function GigList({gigs , setGigs}) {
         if (filter === "paid") return gig.isPaid;
         if (filter === "unpaid") return !gig.isPaid;
     })
+
+    /*
+    * Search gigs based on input
+    */
+   const searchGigs = (newSearch) => {
+    console.log(newSearch);
+    setSearch(newSearch);
+   }
 
     const handleDeleteGig = (index) => {
     setGigs((prevGigs) => {
@@ -31,7 +42,7 @@ function GigList({gigs , setGigs}) {
     return (
         <div className="ml-5 mt-8">
             <div className="p-5 bg-[#1F232B] border-[#2D333B] border-2 rounded-xl">
-                <GigListNavbar setFilter={setFilter}/>
+                <GigListNavbar filter={filter} setFilter={setFilter} search={search} searchGigs={searchGigs}/>
             </div>
             {filteredGigs.length === 0 ? (
                 <h1 className="bg-[#1F232B] border-[#2D333B] border-2 rounded-lg p-5 text-center font-semibold text-[#e6e6e6]">No gigs found...</h1>
