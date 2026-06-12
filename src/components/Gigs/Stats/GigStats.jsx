@@ -22,7 +22,7 @@ function GigStats({gigs}) {
             <GigStatsCard icon="📅" label="Total Gigs" number={gigs.length} subtext="All time"/>
             <GigStatsCard icon="✔️" label="Paid Gigs" number={getPaidGigsTotal()} subtext="This month"/>
             <GigStatsCard icon="⌛" label="Upcoming Gigs" number={getUpcomingGigsTotal()} subtext="Next 30 days"/>
-            <GigStatsCard icon="💰" label="Total Earnings" number={`$${getTotalEarnings()}`} subtext="All time"/>
+            <GigStatsCard icon="💰" label="Total Earnings" number={`$${getTotalEarnings()}.00`} subtext="All time"/>
         </div>
     )
 }
