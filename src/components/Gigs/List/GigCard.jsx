@@ -1,4 +1,4 @@
-function GigCard({month, day, year, gigName, venue, payment, isPaid, remove, togglePaid}) {
+function GigCard({month, day, year, gigName, clientName, venue, payment, isPaid, remove, togglePaid}) {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -7,14 +7,17 @@ function GigCard({month, day, year, gigName, venue, payment, isPaid, remove, tog
 
     return (
         <div className="flex flex-col sm:flex-row bg-[#1F232B] border-[#2D333B] border-2 rounded-lg p-5 gap-4 mt-3">
-            <div className="flex flex-row items-center gap-5 sm:w-64">
+            <div className="flex flex-row items-center gap-5 w-96">
                 <div className="flex flex-col bg-[#0D1117] text-[#e6e6e6] px-5 py-2 text-center border-[#2D333B] border-2 rounded-xl shrink-0">
                     <h1 className="uppercase">{month}</h1>
                     <p className="text-2xl">{day}</p>
                 </div>
-                <div className="flex flex-col text-[#e6e6e6] gap-1">
+                <div className="flex flex-col text-[#e6e6e6] gap-1 w-40">
                     <h1 className="text-lg font-bold">{gigName}</h1>
                     <p className="font-medium"><span>📍 </span>{venue}</p>
+                </div>
+                <div className="flex flex-col text-[#e6e6e6] gap-1 w-32">
+                    <p className="text-xs text-[#A0A7B2]">{clientName}</p>
                 </div>
             </div>
             <div className="flex flex-row items-center justify-center text-[#e6e6e6] sm:ml-10 gap-4 sm:gap-0 flex-1">

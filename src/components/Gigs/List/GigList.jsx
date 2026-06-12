@@ -6,6 +6,8 @@ function GigList({gigs, setGigs}) {
 
     const [filter, setFilter] = useState("upcoming");
     const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    const gigsPerPage = 5;
 
     const filteredGigs = gigs.filter((gig) => {
         const matchesSearch = gig.eventName.toLowerCase().includes(search.toLowerCase()) || gig.venue.toLowerCase().includes(search.toLowerCase());
@@ -20,7 +22,13 @@ function GigList({gigs, setGigs}) {
         if (filter === "unpaid") return !gig.isPaid;
     })
 
-    const searchGigs = (newSearch) => setSearch(newSearch);
+    const totalPages = Math.ceil(filteredGigs.length / gigsPerPage);
+    const paginatedGigs = filteredGigs.slice((page - 1) * gigsPerPage, page * gigsPerPage);
+
+    const searchGigs = (newSearch) => {
+        setSearch(newSearch);
+        setPage(1); // reset to page 1 on search
+    }
 
     const handleDeleteGig = (index) => {
         setGigs((prevGigs) => {
@@ -43,12 +51,12 @@ function GigList({gigs, setGigs}) {
     return (
         <div className="ml-5 mt-8">
             <div className="p-5 bg-[#1F232B] border-[#2D333B] border-2 rounded-xl">
-                <GigListNavbar filter={filter} setFilter={setFilter} search={search} searchGigs={searchGigs}/>
+                <GigListNavbar filter={filter} setFilter={(f) => { setFilter(f); setPage(1); }} search={search} searchGigs={searchGigs}/>
             </div>
-            {filteredGigs.length === 0 ? (
+            {paginatedGigs.length === 0 ? (
                 <h1 className="bg-[#1F232B] border-[#2D333B] border-2 rounded-lg p-5 text-center font-semibold text-[#e6e6e6]">No gigs found...</h1>
             ) : (
-                filteredGigs.map((gig) => {
+                paginatedGigs.map((gig) => {
                     const originalIndex = gigs.indexOf(gig);
                     return (
                         <GigCard
@@ -57,6 +65,7 @@ function GigList({gigs, setGigs}) {
                             day={gig.date ? new Date(gig.date).getDate() : ''}
                             year={gig.date ? new Date(gig.date).getFullYear() : ''}
                             gigName={gig.eventName}
+                            clientName={gig.clientName}
                             venue={gig.venue}
                             payment={gig.payment}
                             isPaid={gig.isPaid}
@@ -65,6 +74,23 @@ function GigList({gigs, setGigs}) {
                         />
                     )
                 })
+            )}
+            {totalPages > 1 && (
+                <div className="flex justify-between items-center mt-4 text-[#A0A7B2] text-sm">
+                    <button
+                        onClick={() => setPage(p => p - 1)}
+                        disabled={page === 1}
+                        className="px-4 py-2 bg-[#1F232B] border-[#2D333B] border-2 rounded-lg disabled:opacity-30 hover:text-[#8b5cf6] cursor-pointer">
+                        ← Prev
+                    </button>
+                    <span>Page {page} of {totalPages}</span>
+                    <button
+                        onClick={() => setPage(p => p + 1)}
+                        disabled={page === totalPages}
+                        className="px-4 py-2 bg-[#1F232B] border-[#2D333B] border-2 rounded-lg disabled:opacity-30 hover:text-[#8b5cf6] cursor-pointer">
+                        Next →
+                    </button>
+                </div>
             )}
         </div>
     )
