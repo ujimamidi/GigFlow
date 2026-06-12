@@ -1,4 +1,9 @@
-function GigCard({month, day, year, gigName, clientName, venue, payment, isPaid, remove, togglePaid}) {
+import { useState } from "react";
+import NotesModal from "./NotesModal";
+
+function GigCard({month, day, year, gigName, clientName, venue, payment, isPaid, remove, togglePaid, notes, saveNotes}) {
+
+    const [showNotes, setShowNotes] = useState(false);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -40,8 +45,18 @@ function GigCard({month, day, year, gigName, clientName, venue, payment, isPaid,
                 </div>
             </div>
             <div className="flex items-center justify-end">
+                <button className="mr-3 p-2 bg-[#0D1117] rounded-lg border-2 border-[#2D333B] hover:border-[#e6e6e6] cursor-pointer" onClick={() => setShowNotes(true)}>📝</button>
                 <button className="p-2 bg-[#0D1117] rounded-lg border-2 border-[#2D333B] hover:border-[#b11717] cursor-pointer" onClick={remove}>❌</button>
             </div>
+
+            {showNotes && (
+                <NotesModal 
+                    gigName={gigName}
+                    notes={notes}
+                    saveNotes={saveNotes}
+                    onClose={() => setShowNotes(false)}
+                />
+            )}
         </div>
     )
 }

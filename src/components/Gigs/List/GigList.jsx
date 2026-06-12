@@ -48,6 +48,16 @@ function GigList({gigs, setGigs}) {
         });
     }
 
+    const handleSaveNotes = (index, notes) => {
+        setGigs((prevGigs) => {
+            const updated = prevGigs.map((gig, i) =>
+                i === index ? {...gig, notes} : gig
+            );
+            localStorage.setItem("gigs", JSON.stringify(updated));
+            return updated;
+        });
+    }
+
     return (
         <div className="ml-5 mt-8">
             <div className="p-5 bg-[#1F232B] border-[#2D333B] border-2 rounded-xl">
@@ -71,6 +81,8 @@ function GigList({gigs, setGigs}) {
                             isPaid={gig.isPaid}
                             remove={() => handleDeleteGig(originalIndex)}
                             togglePaid={() => handleTogglePaid(originalIndex)}
+                            notes={gig.notes || ""}
+                            saveNotes={(notes) => handleSaveNotes(originalIndex, notes)}
                         />
                     )
                 })
