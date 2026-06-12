@@ -4,8 +4,12 @@ import GigListNavbar from "./GigListNavbar";
 function GigList({gigs , setGigs}) {
 
     const handleDeleteGig = (index) => {
-        setGigs(gigs.filter((_, i) => i !== index));
-    }
+    setGigs((prevGigs) => {
+        const gigToRemove = prevGigs.filter((_, i) => i !== index);
+        localStorage.setItem("gigs", JSON.stringify(gigToRemove));
+        return gigToRemove;
+    });
+}
     
     return (
         <div className="ml-5 mt-8">

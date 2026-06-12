@@ -11,6 +11,7 @@ function GigForm({setGigs}) {
         payment: "",
         isPaid: false
     });
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         // load gigs from local storage on component mount
@@ -25,16 +26,37 @@ function GigForm({setGigs}) {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
+    /*
+    * Handles errors if form has empty inputs
+    */
+    const handleErrors = () => {
+        const newErrors = {};
+        if (!formData.eventName) newErrors.eventName = "Event Name is required";
+        if (!formData.clientName) newErrors.clientName = "Client Name is required";
+        if (!formData.venue) newErrors.venue = "Venue is required";
+        if (!formData.date) newErrors.date = "Date is required";
+        if (!formData.payment) newErrors.payment = "Payment is required";
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0; // returns true if no errors
+    }
+
+    /*
+    * Handles submission of form
+    */
     const handleSubmit = () => {
+        const isValid = handleErrors();
+        if (!isValid) return; // prevent submission
+
+        // creates gig and adds it to local storage
         setGigs((prev) => {
             const updatedGigList = [...prev, formData];
-            updatedGigList.sort((a, b) => new Date(a.date) - new Date(b.date));
+            updatedGigList.sort((a, b) => new Date(a.date) - new Date(b.date)); // sorts gigs in date order
             localStorage.setItem("gigs", JSON.stringify(updatedGigList));
             return updatedGigList;
         })
-        // setGigs(prev => [...prev, formData].sort((a, b) => new Date(a.date) - new Date(b.date)));
         console.log(formData);
-        // clear input
+        // clear inputs after submission
         setFormData({
             eventName: "",
             clientName: "",
@@ -53,31 +75,35 @@ function GigForm({setGigs}) {
                 placeholder="e.g Wedding Reception"
                 value={formData.eventName}
                 onChange={(e) => handleChange("eventName", e.target.value)}
+                error={errors.eventName}
             />
             <FormField 
                 title="Client Name"
                 placeholder="e.g Loli Mokam"
                 value={formData.clientName}
                 onChange={(e) => handleChange("clientName", e.target.value)}
+                error={errors.clientName}
             />
             <FormField 
                 title="Venue"
                 placeholder="e.g Crown Melbourne"
                 value={formData.venue}
                 onChange={(e) => handleChange("venue", e.target.value)}
+                error={errors.venue}
             />
             <FormField 
                 title="Date"
                 type="date"
-                placeholder="Select date"
                 value={formData.date}
                 onChange={(e) => handleChange("date", e.target.value)}
+                error={errors.date}
             />
             <FormField 
                 title="Payment Amount"
                 placeholder="e.g $500"
                 value={formData.payment}
                 onChange={(e) => handleChange("payment", e.target.value)}
+                error={errors.payment}
             />
             <FormField 
                 title="Mark as Paid?"

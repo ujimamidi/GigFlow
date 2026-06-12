@@ -1,4 +1,4 @@
-function FormField({ title, type = "text", placeholder, value, onChange }) {
+function FormField({ title, type = "text", placeholder, value, onChange, error}) {
     if (type === "checkbox") {
         return (
             <div className="flex items-center gap-3 my-3">
@@ -27,6 +27,7 @@ function FormField({ title, type = "text", placeholder, value, onChange }) {
                 onChange={onChange}
                 className="bg-[#161B22] border border-[#2D333B] rounded-lg p-2 text-[#E6E6E6]"
             />
+            <p className="text-xs text-[#fd4e4e] ml-1 font-medium mt-1">{error}</p>
         </div>
     );
 }
