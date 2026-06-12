@@ -113,7 +113,7 @@ function GigForm({setGigs}) {
             />
             <button
                 onClick={handleSubmit}
-                className="mt-5 py-2 bg-[#8b5cf6] rounded-xl text-[#E6E6E6]">
+                className="mt-5 py-2 bg-[#8b5cf6] rounded-xl text-[#E6E6E6] cursor-pointer hover:border-2">
                     Add Gig
             </button>
         </div>
