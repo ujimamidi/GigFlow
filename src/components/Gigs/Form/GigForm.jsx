@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormField from "./FormField";
 
 function GigForm({setGigs}) {
@@ -12,12 +12,27 @@ function GigForm({setGigs}) {
         isPaid: false
     });
 
+    useEffect(() => {
+        // load gigs from local storage on component mount
+        const savedGigs = JSON.parse(localStorage.getItem("gigs"));
+        if (savedGigs) {
+            console.log("local storage GET is working");
+            setGigs(savedGigs);
+        }
+    }, [setGigs])
+
     const handleChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
     const handleSubmit = () => {
-        setGigs(prev => [...prev, formData].sort((a, b) => new Date(a.date) - new Date(b.date)));
+        setGigs((prev) => {
+            const updatedGigList = [...prev, formData];
+            updatedGigList.sort((a, b) => new Date(a.date) - new Date(b.date));
+            localStorage.setItem("gigs", JSON.stringify(updatedGigList));
+            return updatedGigList;
+        })
+        // setGigs(prev => [...prev, formData].sort((a, b) => new Date(a.date) - new Date(b.date)));
         console.log(formData);
         // clear input
         setFormData({
