@@ -1,4 +1,4 @@
-function GigCard({month, day, year, gigName, venue, payment, isPaid, remove}) {
+function GigCard({month, day, year, gigName, venue, payment, isPaid, remove, togglePaid}) {
 
     const today = new Date();
     const gigDate = new Date(`${month} ${day}, ${year}`);
@@ -19,11 +19,11 @@ function GigCard({month, day, year, gigName, venue, payment, isPaid, remove}) {
             <div className="flex flex-row items-center text-[#e6e6e6]" style={{minWidth: '400px'}}>
                 <div className="w-28 flex justify-center">
                     {isUpcoming ? (
-                        <span className="bg-[#8b5cf6] text-purple-300 text-sm font-medium px-3 py-1 rounded-full">
+                        <span className="text-[#8b5cf6] text-sm font-medium px-3 py-2 rounded-lg italic">
                             Upcoming
                         </span>
                     ) : (
-                        <span className="bg-gray-500/20 text-gray-400 text-sm font-medium px-3 py-1 rounded-full">
+                        <span className="text-gray-400 text-sm font-medium px-3 py-2 rounded-lg italic">
                             Past
                         </span>
                     )}
@@ -33,11 +33,16 @@ function GigCard({month, day, year, gigName, venue, payment, isPaid, remove}) {
                 </div>
                 <div className="w-24 flex justify-center">
                     {isPaid ? (
-                        <span className="bg-[#09a342] text-green-300 text-sm font-medium px-4 py-1 rounded-full">
+                        <span 
+                            title="test"
+                            onClick={togglePaid} 
+                            className="bg-[#09a342] text-green-300 text-xs font-medium px-4 py-2 rounded-lg cursor-pointer hover:border-2">
                             Paid
                         </span>
                     ) : (
-                        <span className="bg-[#b11717] text-red-300 text-sm font-medium px-4 py-1 rounded-full">
+                        <span 
+                            onClick={togglePaid} 
+                            className="bg-[#b11717] text-red-300 text-xs font-medium px-4 py-2 rounded-lg cursor-pointer hover:border-2">
                             Unpaid
                         </span>
                     )}
@@ -45,7 +50,7 @@ function GigCard({month, day, year, gigName, venue, payment, isPaid, remove}) {
             </div>
             <div className="flex flex-row items-center align-middle gap-3 text-[#e6e6e6]">
                 {/* <h1 className="p-2 bg-[#0D1117] rounded-lg border border-[#A0A7B2]">🖍</h1> */}
-                <button className="p-2 bg-[#0D1117] rounded-lg border border-[#b11717]" onClick={remove}>❌</button>
+                <button className="p-2 bg-[#0D1117] rounded-lg border-2 border-[#2D333B] hover:border-[#b11717] cursor-pointer" onClick={remove}>❌</button>
             </div>
         </div>
     )

@@ -27,18 +27,27 @@ function GigList({gigs , setGigs}) {
     * Search gigs based on input
     */
    const searchGigs = (newSearch) => {
-    console.log(newSearch);
-    setSearch(newSearch);
+        setSearch(newSearch);
    }
 
     const handleDeleteGig = (index) => {
-    setGigs((prevGigs) => {
-        const gigToRemove = prevGigs.filter((_, i) => i !== index);
-        localStorage.setItem("gigs", JSON.stringify(gigToRemove));
-        return gigToRemove;
-    });
-}
-    
+        setGigs((prevGigs) => {
+            const gigToRemove = prevGigs.filter((_, i) => i !== index);
+            localStorage.setItem("gigs", JSON.stringify(gigToRemove));
+            return gigToRemove;
+        });
+    }
+
+    const handleTogglePaid = (index) => {
+        setGigs((prevGigs) => {
+            const updatedGigs = prevGigs.map((gig, i) =>
+                i === index ? {...gig, isPaid: !gig.isPaid } : gig
+            );
+            localStorage.setItem("gigs", JSON.stringify(updatedGigs));
+            return updatedGigs;
+        });
+    }
+
     return (
         <div className="ml-5 mt-8">
             <div className="p-5 bg-[#1F232B] border-[#2D333B] border-2 rounded-xl">
@@ -58,6 +67,7 @@ function GigList({gigs , setGigs}) {
                             payment={gig.payment}
                             isPaid={gig.isPaid}
                             remove={() => handleDeleteGig(index)}
+                            togglePaid={() => handleTogglePaid(index)}
                         />
                     ))
                 )}
