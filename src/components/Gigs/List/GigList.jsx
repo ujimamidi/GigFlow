@@ -10,7 +10,9 @@ function GigList({gigs, setGigs}) {
     const gigsPerPage = 5;
 
     const filteredGigs = gigs.filter((gig) => {
-        const matchesSearch = gig.eventName.toLowerCase().includes(search.toLowerCase()) || gig.venue.toLowerCase().includes(search.toLowerCase());
+        const matchesSearch = gig.eventName.toLowerCase().includes(search.toLowerCase()) || 
+                              gig.venue.toLowerCase().includes(search.toLowerCase()) || 
+                              gig.clientName.toLowerCase().includes(search.toLowerCase());
         if (!matchesSearch) return false;
         if (filter === "all") return true;
         const today = new Date();
