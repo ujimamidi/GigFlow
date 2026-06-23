@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FormField from "./FormField";
 
 function GigForm({setGigs}) {
@@ -13,14 +13,14 @@ function GigForm({setGigs}) {
     });
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        // load gigs from local storage on component mount
-        const savedGigs = JSON.parse(localStorage.getItem("gigs"));
-        if (savedGigs) {
-            console.log("local storage GET is working");
-            setGigs(savedGigs);
-        }
-    }, [setGigs])
+    // useEffect(() => {
+    //     // load gigs from local storage on component mount
+    //     const savedGigs = JSON.parse(localStorage.getItem("gigs"));
+    //     if (savedGigs) {
+    //         console.log("local storage GET is working");
+    //         setGigs(savedGigs);
+    //     }
+    // }, [setGigs])
 
     const handleChange = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }));
@@ -52,7 +52,7 @@ function GigForm({setGigs}) {
         setGigs((prev) => {
             const updatedGigList = [...prev, formData];
             updatedGigList.sort((a, b) => new Date(a.date) - new Date(b.date)); // sorts gigs in date order
-            localStorage.setItem("gigs", JSON.stringify(updatedGigList));
+            // localStorage.setItem("gigs", JSON.stringify(updatedGigList));
             return updatedGigList;
         })
         console.log(formData);

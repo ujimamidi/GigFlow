@@ -3,10 +3,17 @@ import GigForm from "../components/Gigs/Form/GigForm";
 import GigList from "../components/Gigs/List/GigList";
 import GigStats from "../components/Gigs/Stats/GigStats";
 import Navbar from "../components/Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Landing() {
-    const [gigs, setGigs] = useState([]);
+    // const [gigs, setGigs] = useState([]);
+    const [gigs, setGigs] = useState(() => {
+        return JSON.parse(localStorage.getItem("gigs")) || [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem("gigs", JSON.stringify(gigs));
+    }, [gigs]);
 
     return (
         <div className="flex flex-col min-h-screen p-4">
